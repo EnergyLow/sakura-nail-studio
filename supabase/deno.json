@@ -1,0 +1,10 @@
+{
+  "imports": {
+    "grammy": "npm:grammy@^1",
+    "@supabase/supabase-js": "npm:@supabase/supabase-js@2",
+    "std/": "https://deno.land/std@0.168.0/"
+  },
+  "compilerOptions": {
+    "lib": ["deno.window", "esnext"]
+  }
+}

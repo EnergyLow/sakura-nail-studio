@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SAKURA • Nail Studio — премиальный маникюр и педикюр</title>
+  <meta name="description" content="SAKURA • Nail Studio — студия маникюра и педикюра: стерильность, премиальные материалы CND, Luxio, Kodi, Gehwol. Онлайн-запись, подарочные сертификаты, рейтинг 4.9 ★." />
+  <meta name="theme-color" content="#FDF6F0" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="SAKURA • Nail Studio — твои ногти — наше искусство" />
+  <meta property="og:description" content="Премиальный маникюр и педикюр в центре города. Онлайн-запись, сертификаты, рейтинг 4.9 ★." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=1200&q=80" />
+  <meta property="og:url" content="https://sakura-nails.example" />
+  <meta property="og:locale" content="ru_RU" />
+
+  <!-- Favicon (заглушка) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23C73E5C'/%3E%3Ctext x='16' y='22' font-size='18' text-anchor='middle' fill='%23fff' font-family='serif'%3E桜%3C/text%3E%3C/svg%3E" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "NailSalon",
+    "name": "SAKURA • Nail Studio",
+    "image": "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=1200&q=80",
+    "url": "https://sakura-nails.example",
+    "telephone": "+7 (999) 123-45-67",
+    "priceRange": "₽₽",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "ул. Сакуры, 12, офис 3",
+      "addressLocality": "Москва",
+      "postalCode": "101000",
+      "addressCountry": "RU"
+    },
+    "openingHoursSpecification": [{
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+      "opens": "09:00", "closes": "21:00"
+    }],
+    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "217" }
+  }
+  </script>
+
+  <script src="js/main.js" defer></script>
+</head>
+
+<body>
+
+<!-- Декоративный SVG-спрайт -->
+<svg width="0" height="0" class="visually-hidden" aria-hidden="true">
+  <symbol id="ico-sakura" viewBox="0 0 48 48">
+    <path fill="currentColor" d="M24 4c2.6 0 4.6 2 4.6 4.6 0 .5-.1 1-.2 1.4 2.4-.6 5 .6 5.6 3 .6 2.2-.5 4.5-2.6 5.4 2.1.9 3.2 3.2 2.6 5.4-.6 2.4-3.2 3.6-5.6 3-1.7 1.8-4.6 1.8-6.3 0-2.4.6-5-.6-5.6-3-.6-2.2.5-4.5 2.6-5.4-2.1-.9-3.2-3.2-2.6-5.4.6-2.4 3.2-3.6 5.6-3-.1-.4-.2-.9-.2-1.4C19.4 6 21.4 4 24 4Z"/>
+    <circle cx="24" cy="16" r="2.4" fill="#fff" opacity=".65"/>
+  </symbol>
+</svg>
+
+<!-- ========== HEADER ========== -->
+<header class="header" id="header" data-header>
+  <div class="container header__inner">
+    <a class="logo" href="#hero" aria-label="SAKURA Nail Studio — на главную">
+      <svg class="logo__icon" aria-hidden="true"><use href="#ico-sakura"></use></svg>
+      <span class="logo__text">
+        <b>SAKURA</b> • Nail Studio
+        <small>桜 · студия маникюра</small>
+      </span>
+    </a>
+
+    <nav class="nav" aria-label="Основная навигация">
+      <a class="nav__link" href="#about">О нас</a>
+      <a class="nav__link" href="#services">Услуги</a>
+      <a class="nav__link" href="#portfolio">Портфолио</a>
+      <a class="nav__link" href="#masters">Мастера</a>
+      <a class="nav__link" href="#reviews">Отзывы</a>
+      <a class="nav__link" href="#faq">FAQ</a>
+      <a class="nav__link" href="#contacts">Контакты</a>
+    </nav>
+
+    <a class="btn btn--primary btn--sm header__cta" href="#booking" data-modal-open="booking">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>
+      Записаться
+    </a>
+
+    <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobileMenu" data-burger>
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ========== MOBILE MENU ========== -->
+<div class="overlay" data-overlay hidden></div>
+<nav class="mobile-menu" id="mobileMenu" aria-label="Мобильная навигация" data-mobile-menu>
+  <a href="#about">О нас</a>
+  <a href="#services">Услуги и цены</a>
+  <a href="#portfolio">Портфолио</a>
+  <a href="#masters">Мастера</a>
+  <a href="#reviews">Отзывы</a>
+  <a href="#promo">Акции</a>
+  <a href="#faq">FAQ</a>
+  <a href="#blog">Блог</a>
+  <a href="#contacts">Контакты</a>
+  <a class="btn btn--primary" href="#booking" data-modal-open="booking">Записаться онлайн</a>
+</nav>
+
+<main>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero" id="hero" aria-label="Главный экран">
+    <div class="hero__bg">
+      <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=1920&q=80"
+           alt="Маникюр в студии SAKURA" width="1920" height="1280" />
+    </div>
+
+    <div class="petals" data-petals aria-hidden="true"></div>
+    <span class="hero__kanji" aria-hidden="true">桜</span>
+
+    <div class="container hero__inner">
+      <p class="eyebrow eyebrow--light">Студия маникюра · Москва</p>
+      <h1 class="hero__title" data-reveal>Твои ногти — <em>наше искусство</em></h1>
+      <p class="hero__sub" data-reveal>Премиальный маникюр и педикюр в центре города. Стерильность, авторский дизайн и мастера, которым хочется доверять.</p>
+
+      <div class="hero__cta" data-reveal>
+        <a class="btn btn--primary" href="#booking" data-modal-open="booking">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>
+          Записаться онлайн
+        </a>
+        <a class="btn btn--ghost btn--ghost-light" href="https://wa.me/79991234567" target="_blank" rel="noopener">
+          <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-1-.3-2.4-1-3.7-2.3-1.6-1.6-2.4-3.3-2.6-3.9-.2-.6-.3-1.3 0-1.8.2-.4.8-1.2 1.2-1.2h.7c.2 0 .4.1.6.5l.8 1.8c.1.2 0 .4-.1.6l-.4.5c-.1.1-.2.3-.1.5.3.6.9 1.5 1.6 2.1.8.7 1.5 1 1.9 1.1.2.1.4 0 .5-.1l.6-.7c.2-.2.4-.2.6-.1l1.7.9c.2.1.3.2.3.5Z"/></svg>
+          WhatsApp
+        </a>
+        <a class="btn btn--ghost btn--ghost-light" href="https://t.me/sakura_nails" target="_blank" rel="noopener">
+          <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.7 4.3 2.9 11.5c-1 .4-1 1.7 0 2l4.6 1.5 1.8 5.4c.3.8 1.4 1 1.9.3l2.5-2.9 4.8 3.6c.7.5 1.7.1 1.9-.8l3-14.3c.2-.9-.7-1.6-1.7-1.2Zm-3.4 3-7 6.4c-.2.2-.3.4-.4.7l-.5 2.4-1.2-3.7 8.5-6.2c.3-.2.7.1.6.4Z"/></svg>
+          Telegram
+        </a>
+      </div>
+    </div>
+
+    <div class="hero__bar">
+      <div class="container hero__bar-inner">
+        <span>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+          ул. Сакуры, 12
+        </span>
+        <span>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 4h3l2 5-2 1c1 2 2.5 3.5 4.5 4.5l1-2 5 2v3c0 1-1 2-2 2A15 15 0 0 1 3 6c0-1 1-2 2-2Z"/></svg>
+          <a href="tel:+79991234567">+7 (999) 123-45-67</a>
+        </span>
+        <span>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          Ежедневно 9:00 — 21:00
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ABOUT ========== -->
+  <section class="section" id="about">
+    <div class="container about">
+      <div class="about__media" data-reveal>
+        <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1000&q=80"
+             alt="Интерьер студии SAKURA" loading="lazy" width="1000" height="850" />
+        <div class="about__badge">
+          <b>9 лет</b>
+          <small>заботы о красоте и здоровье ногтей</small>
+        </div>
+      </div>
+
+      <div class="about__content" data-reveal>
+        <p class="eyebrow">О студии</p>
+        <h2 class="section__title">Тишина, чистота и внимание к деталям</h2>
+        <p>SAKURA — камерная студия в центре города, где маникюр превращается в ритуал. Мы работаем по японской философии <em>омотэнаси</em>: гость — самое важное.</p>
+        <p>Используем премиальные материалы CND, Luxio, Kodi и Gehwol, проходим многоступенчатую стерилизацию инструментов.</p>
+
+        <div class="advantages">
+          <article class="advantage">
+            <span class="advantage__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3 4 6v6c0 5 3.4 8 8 9 4.6-1 8-4 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg></span>
+            <div><h3>Стерильность</h3><p>Крафт-пакеты, сухожаровой шкаф и одноразовые расходники.</p></div>
+          </article>
+          <article class="advantage">
+            <span class="advantage__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m12 3 2.5 5.5L20 10l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-1.5L12 3Z"/></svg></span>
+            <div><h3>Премиум-бренды</h3><p>Только оригинальные материалы CND, Luxio, Kodi, Gehwol.</p></div>
+          </article>
+          <article class="advantage">
+            <span class="advantage__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/></svg></span>
+            <div><h3>Опытные мастера</h3><p>Команда с опытом 4–7 лет и ежегодным обучением.</p></div>
+          </article>
+          <article class="advantage">
+            <span class="advantage__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-4.6-7-10a7 7 0 1 1 14 0c0 5.4-7 10-7 10Z"/><path d="M9 11h6"/></svg></span>
+            <div><h3>Уютная атмосфера</h3><p>Тёплый свет, ароматный чай и любимая музыка в зале.</p></div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SERVICES ========== -->
+  <section class="section section--cream" id="services">
+    <div class="container">
+      <div class="section__head" data-reveal>
+        <p class="eyebrow">Услуги и цены</p>
+        <h2 class="section__title">Прайс, в котором всё честно</h2>
+        <p>Время указано вместе с подготовкой. Снятие чужого покрытия — +500 ₽ к услуге.</p>
+      </div>
+
+      <div class="tabs" role="tablist" aria-label="Категории услуг" data-tabs>
+        <button class="tab is-active" type="button" role="tab" aria-selected="true"  aria-controls="panel-manicure" data-tab="manicure">Маникюр</button>
+        <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="panel-pedicure" data-tab="pedicure">Педикюр</button>
+        <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="panel-extension" data-tab="extension">Наращивание</button>
+        <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="panel-design" data-tab="design">Дизайн</button>
+        <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="panel-care" data-tab="care">Уход</button>
+      </div>
+
+      <!-- Маникюр -->
+      <div class="panel is-active" id="panel-manicure" role="tabpanel" data-panel="manicure">
+        <div class="price-card">
+          <ul class="price-list">
+            <li class="price-row"><span class="price-row__name">Маникюр классический<small>Аппаратная обработка, без покрытия</small></span><span class="price-row__dots"></span><span class="price-row__time">60 мин</span><span class="price-row__price">1 500 ₽</span></li>
+            <li class="price-row"><span class="price-row__name">Маникюр + гель-лак<small>Любой оттенок из палитры</small></span><span class="price-row__dots"></span><span class="price-row__time">90 мин</span><span class="price-row__price">2 500 ₽</span></li>
+            <li class="price-row"><span class="price-row__name">Маникюр + укрепление<small>Гелевое укрепление пластины</small></span><span class="price-row__dots"></span><span class="price-row__time">90 мин</span><span class="price-row__price">2 000 ₽</span></li>
+            <li class="price-row"><span class="price-row__name">Снятие покрытия<small>Вместе с уходом за кутикулой</small></span><span class="price-row__dots"></span><span class="price-row__time">30 мин</span><span class="price-row__price">500 ₽</span></li>
+          </ul>
+          <div class="price-card__foot">
+            <p class="price-card__note">Все цены указаны за работу мастера. Материалы включены.</p>
+            <a class="btn btn--primary btn--sm" href="#booking" data-modal-open="booking">Записаться</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Педикюр -->
+      <div class="panel" id="panel-pedicure" role="tabpanel" data-panel="pedicure" hidden>
+        <div class="price-card">
+          <ul class="price-list">
+            <li class="price-row"><span class="price-row__name">Педикюр полный<small>Стопы + пальцы, с покрытием</small></span><span class="price-row__dots"></span><span class="price-row__time">90 мин</span><span class="price-row__price">2 800 ₽</span></li>
+            <li class="price-row"><span class="price-row__name">Педикюр без покрытия<small>Гигиеническая обработка</small></span><span class="price-row__dots"></span><span class="price-row__time">70 мин</span><span class="price-row__price">2 100 ₽</span></li>
+            <li class="price-row"><span class="price-row__name">Медицинский педикюр<small>Для проблемных зон, с Gehwol</small></span><span class="price-row__dots"></span><span class="price-row__time">90 мин</span><span class="price-row__price">3 200 ₽</span></li>
+            <li class="price-row"><span class="price-row__name">Уход за стопами<small>Пилинг + массаж + крем</small></span><span class="price-row__dots"></span><span class="price-row__time">40 мин</span><span class="price-row__price">1 300 ₽</span></li>
+          </ul>
+          <div class="price-card__foot">
+            <p class="price-card__note">Рекомендуем раз в 4–6 недель для комфорта и здоровья стоп.</p>
+            <a class="btn btn--primary btn--sm" href="#booking" data-modal-open="booking">Записаться</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Наращивание -->
+      <div class="panel" id="panel-extension" role="tabpanel" data-panel="extension" hidden>
+        <div class="price-card">
+          <ul class="price-list">
+            <li class="price-row"><span class="price-row__name">Наращивание (гель)<small>Моделирование формы на верхние формы</small></span><span class="price-row__dots"></span><span class="price-row__time">150 мин</span><span class="price-row__price">4 500 ₽</span></li>
+            <li class="price-row"><span class="price-row__name">Наращивание + дизайн<small>Два ногтя с авторской росписью</small></span><span class="price-row__dots"></span><span class="price-row__time">180 мин</span><span class="price-row__price">5 200 ₽</span></li>
+            <li class="price-row"><span class="price-row__name">Коррекция наращённых<small>Обновление формы и покрытия</small></span><span class="price-row__dots"></span><span class="price-row__time">120 мин</span><span class="price-row__price">3 400 ₽</span></li>
+            <li class="price-row"><span class="price-row__name">Укрепление<small>Гель на натуральные ногти</small></span><span class="price-row__dots"></span><span class="price-row__time">60 мин</span><span class="price-row__price">2 000 ₽</span></li>
+          </ul>
+          <div class="price-card__foot">
+            <p class="price-card__note">При наращивании первое снятие — бесплатно.</p>
+            <a class="btn btn--primary btn--sm" href="#booking" data-modal-open="booking">Записаться</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Дизайн -->
+      <div class="panel" id="panel-design" role="tabpanel" data-panel="design" hidden>
+        <div class="price-card">
+          <ul class="price-list">
+            <li class="price-row"><span class="price-row__name">Дизайн за ноготь<small>Слайдер, стразы, тонкая кисть</small></span><span class="price-row__dots"></span><span class="price-row__time">5–15 мин</span><span class="price-row__price">от 100 ₽</span></li>
+            <li class="price-row"><span class="price-row__name">Френч / лунный<small>Классика в любом цвете</small></span><span class="price-row__dots"></span><span class="price-row__time">20 мин</span><span class="price-row__price">600 ₽</span></li>
+            <li class="price-row"><span class="price-row__name">Авторская роспись<small>Индивидуальный эскиз</small></span><span class="price-row__dots"></span><span class="price-row__time">30–50 мин</span><span class="price-row__price">от 1 200 ₽</span></li>
+            <li class="price-row"><span class="price-row__name">Дизайн на все ногти<small>Комплексный сет</small></span><span class="price-row__dots"></span><span class="price-row__time">40 мин</span><span class="price-row__price">от 1 800 ₽</span></li>
+          </ul>
+          <div class="price-card__foot">
+            <p class="price-card__note">Принесите референс — повторим или придумаем лучше.</p>
+            <a class="btn btn--primary btn--sm" href="#booking" data-modal-open="booking">Записаться</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Уход -->
+      <div class="panel" id="panel-care" role="tabpanel" data-panel="care" hidden>
+        <div class="price-card">
+          <ul class="price-list">
+            <li class="price-row"><span class="price-row__name">SPA-уход для рук<small>Скраб, маска, массаж, парафин</small></span><span class="price-row__dots"></span><span class="price-row__time">45 мин</span><span class="price-row__price">1 600 ₽</span></li>
+            <li class="price-row"><span class="price-row__name">Парафинотерапия<small>Тёплый парафин для мягкости кожи</small></span><span class="price-row__dots"></span><span class="price-row__time">25 мин</span><span class="price-row__price">900 ₽</span></li>
+            <li class="price-row"><span class="price-row__name">Восстановление ногтей<small>Курс из 4 процедур IBX</small></span><span class="price-row__dots"></span><span class="price-row__time">40 мин</span><span class="price-row__price">2 400 ₽</span></li>
+            <li class="price-row"><span class="price-row__name">Ремонт одного ногтя<small>Восстановление формы</small></span><span class="price-row__dots"></span><span class="price-row__time">20 мин</span><span class="price-row__price">300 ₽</span></li>
+          </ul>
+          <div class="price-card__foot">
+            <p class="price-card__note">Уход можно добавить к любой основной услуге.</p>
+            <a class="btn btn--primary btn--sm" href="#booking" data-modal-open="booking">Записаться</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== BEFORE / AFTER ========== -->
+  <section class="section" id="before-after">
+    <div class="container">
+      <div class="section__head" data-reveal>
+        <p class="eyebrow">До / после</p>
+        <h2 class="section__title">Результат, который видно</h2>
+        <p>Потяните ползунок, чтобы сравнить состояние ногтей до и после.</p>
+      </div>
+
+      <div class="ba" data-ba data-reveal aria-label="Сравнение до и после">
+        <img class="ba__before" src="https://images.unsplash.com/photo-1610992015732-2449b76344bc?auto=format&fit=crop&w=1400&q=80" alt="До маникюра" loading="lazy" width="1400" height="875" />
+        <img class="ba__after" data-ba-after src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=1400&q=80" alt="После маникюра" loading="lazy" width="1400" height="875" />
+        <span class="ba__tag ba__tag--before">До</span>
+        <span class="ba__tag ba__tag--after">После</span>
+        <span class="ba__handle" data-ba-handle aria-hidden="true"></span>
+        <span class="ba__knob" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m9 6-4 6 4 6M15 6l4 6-4 6"/></svg>
+        </span>
+      </div>
+
+      <div class="brands" data-reveal>
+        <span class="brand">CND</span>
+        <span class="brand">Luxio</span>
+        <span class="brand">Kodi</span>
+        <span class="brand">Gehwol</span>
+        <span class="brand">IBX</span>
+        <span class="brand">OPI</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PORTFOLIO ========== -->
+  <section class="section section--pink" id="portfolio">
+    <div class="container">
+      <div class="section__head" data-reveal>
+        <p class="eyebrow">Портфолио</p>
+        <h2 class="section__title">Работы наших мастеров</h2>
+        <p>Нажмите на фото, чтобы открыть лайтбокс. Навигация — стрелками ← →, выход — Esc.</p>
+      </div>
+
+      <div class="chips" data-filters role="group" aria-label="Фильтры портфолио">
+        <button class="chip is-active" type="button" data-filter="all">Все</button>
+        <button class="chip" type="button" data-filter="minimal">Минимализм</button>
+        <button class="chip" type="button" data-filter="design">Дизайн</button>
+        <button class="chip" type="button" data-filter="french">Френч</button>
+        <button class="chip" type="button" data-filter="extension">Наращивание</button>
+        <button class="chip" type="button" data-filter="pedicure">Педикюр</button>
+      </div>
+
+      <div class="gallery" data-gallery data-reveal>
+        <figure class="gallery__item" data-cat="minimal" tabindex="0" role="button" aria-label="Открыть фото: нюдовый маникюр">
+          <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=700&q=80" alt="Нюдовый маникюр" loading="lazy" width="700" height="700" />
+          <figcaption><b>Нюдовый маникюр</b><span>мастер Анна</span></figcaption>
+        </figure>
+        <figure class="gallery__item" data-cat="french" tabindex="0" role="button" aria-label="Открыть фото: классический френч">
+          <img src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?auto=format&fit=crop&w=700&q=80" alt="Классический френч" loading="lazy" width="700" height="700" />
+          <figcaption><b>Классический френч</b><span>мастер Анна</span></figcaption>
+        </figure>
+        <figure class="gallery__item" data-cat="design" tabindex="0" role="button" aria-label="Открыть фото: авторская роспись">
+          <img src="https://images.unsplash.com/photo-1610992015732-2449b76344bc?auto=format&fit=crop&w=700&q=80" alt="Авторская роспись" loading="lazy" width="700" height="700" />
+          <figcaption><b>Авторская роспись</b><span>мастер Екатерина</span></figcaption>
+        </figure>
+        <figure class="gallery__item" data-cat="extension" tabindex="0" role="button" aria-label="Открыть фото: наращивание">
+          <img src="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?auto=format&fit=crop&w=700&q=80" alt="Наращивание гелем" loading="lazy" width="700" height="700" />
+          <figcaption><b>Наращивание, миндаль</b><span>мастер Анна</span></figcaption>
+        </figure>
+        <figure class="gallery__item" data-cat="pedicure" tabindex="0" role="button" aria-label="Открыть фото: педикюр">
+          <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?auto=format&fit=crop&w=700&q=80" alt="Педикюр с покрытием" loading="lazy" width="700" height="700" />
+          <figcaption><b>Педикюр с покрытием</b><span>мастер Мария</span></figcaption>
+        </figure>
+        <figure class="gallery__item" data-cat="minimal" tabindex="0" role="button" aria-label="Открыть фото: минимализм">
+          <img src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?auto=format&fit=crop&w=700&q=80" alt="Минимализм с точкой" loading="lazy" width="700" height="700" />
+          <figcaption><b>Минимализм + точка</b><span>мастер Екатерина</span></figcaption>
+        </figure>
+        <figure class="gallery__item" data-cat="design" tabindex="0" role="button" aria-label="Открыть фото: стразы">
+          <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=700&q=80" alt="Дизайн со стразами" loading="lazy" width="700" height="700" />
+          <figcaption><b>Деликатные стразы</b><span>мастер Екатерина</span></figcaption>
+        </figure>
+        <figure class="gallery__item" data-cat="french" tabindex="0" role="button" aria-label="Открыть фото: цветной френч">
+          <img src="https://images.unsplash.com/photo-1610992015732-2449b76344bc?auto=format&fit=crop&w=700&q=80" alt="Цветной френч" loading="lazy" width="700" height="700" />
+          <figcaption><b>Цветной френч</b><span>мастер Анна</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== MASTERS ========== -->
+  <section class="section" id="masters">
+    <div class="container">
+      <div class="section__head" data-reveal>
+        <p class="eyebrow">Команда</p>
+        <h2 class="section__title">Мастера, которым доверяют</h2>
+        <p>Каждый мастер проходит обучение раз в год и работает только с проверенными материалами.</p>
+      </div>
+
+      <div class="masters">
+        <article class="master" data-reveal>
+          <img src="https://images.unsplash.com/photo-1595959183082-7b570b7e08e2?auto=format&fit=crop&w=700&q=80" alt="Анна — топ-мастер" loading="lazy" width="700" height="750" />
+          <div class="master__body">
+            <span class="master__role">Топ-мастер</span>
+            <h3>Анна</h3>
+            <p class="master__meta">7 лет опыта · френч, минимализм, укрепление</p>
+            <p>Любит чистые линии и архитектурную форму. Научит носить короткие ногти так, чтобы они выглядели дорого.</p>
+            <div class="master__soc">
+              <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram Анны"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2Zm0 5.3a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9Zm0 7.4a2.9 2.9 0 1 1 0-5.8 2.9 2.9 0 0 1 0 5.8Zm5.8-7.6a1.1 1.1 0 1 1-2.2 0 1.1 1.1 0 0 1 2.2 0Z"/></svg></a>
+              <a href="https://t.me/sakura_nails" target="_blank" rel="noopener" aria-label="Telegram Анны"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.7 4.3 2.9 11.5c-1 .4-1 1.7 0 2l4.6 1.5 1.8 5.4c.3.8 1.4 1 1.9.3l2.5-2.9 4.8 3.6c.7.5 1.7.1 1.9-.8l3-14.3c.2-.9-.7-1.6-1.7-1.2Zm-3.4 3-7 6.4c-.2.2-.3.4-.4.7l-.5 2.4-1.2-3.7 8.5-6.2c.3-.2.7.1.6.4Z"/></svg></a>
+            </div>
+          </div>
+        </article>
+
+        <article class="master" data-reveal>
+          <img src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?auto=format&fit=crop&w=700&q=80" alt="Мария — мастер педикюра" loading="lazy" width="700" height="750" />
+          <div class="master__body">
+            <span class="master__role">Мастер педикюра</span>
+            <h3>Мария</h3>
+            <p class="master__meta">5 лет опыта · медицинский подход, Gehwol</p>
+            <p>Работает с проблемными зонами деликатно и без боли. Поможет забыть о трещинах и натоптышах.</p>
+            <div class="master__soc">
+              <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram Марии"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2Zm0 5.3a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9Zm0 7.4a2.9 2.9 0 1 1 0-5.8 2.9 2.9 0 0 1 0 5.8Zm5.8-7.6a1.1 1.1 0 1 1-2.2 0 1.1 1.1 0 0 1 2.2 0Z"/></svg></a>
+              <a href="https://t.me/sakura_nails" target="_blank" rel="noopener" aria-label="Telegram Марии"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.7 4.3 2.9 11.5c-1 .4-1 1.7 0 2l4.6 1.5 1.8 5.4c.3.8 1.4 1 1.9.3l2.5-2.9 4.8 3.6c.7.5 1.7.1 1.9-.8l3-14.3c.2-.9-.7-1.6-1.7-1.2Zm-3.4 3-7 6.4c-.2.2-.3.4-.4.7l-.5 2.4-1.2-3.7 8.5-6.2c.3-.2.7.1.6.4Z"/></svg></a>
+            </div>
+          </div>
+        </article>
+
+        <article class="master" data-reveal>
+          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=700&q=80" alt="Екатерина — дизайнер" loading="lazy" width="700" height="750" />
+          <div class="master__body">
+            <span class="master__role">Дизайнер</span>
+            <h3>Екатерина</h3>
+            <p class="master__meta">4 года опыта · авторские росписи, стразы</p>
+            <p>Превращает референс в носибельный дизайн. Обожает тонкую кисть, минимализм и японские мотивы.</p>
+            <div class="master__soc">
+              <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram Екатерины"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2Zm0 5.3a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9Zm0 7.4a2.9 2.9 0 1 1 0-5.8 2.9 2.9 0 0 1 0 5.8Zm5.8-7.6a1.1 1.1 0 1 1-2.2 0 1.1 1.1 0 0 1 2.2 0Z"/></svg></a>
+              <a href="https://t.me/sakura_nails" target="_blank" rel="noopener" aria-label="Telegram Екатерины"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.7 4.3 2.9 11.5c-1 .4-1 1.7 0 2l4.6 1.5 1.8 5.4c.3.8 1.4 1 1.9.3l2.5-2.9 4.8 3.6c.7.5 1.7.1 1.9-.8l3-14.3c.2-.9-.7-1.6-1.7-1.2Zm-3.4 3-7 6.4c-.2.2-.3.4-.4.7l-.5 2.4-1.2-3.7 8.5-6.2c.3-.2.7.1.6.4Z"/></svg></a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== BOOKING ========== -->
+  <section class="section section--cream" id="booking">
+    <div class="container">
+      <div class="section__head" data-reveal>
+        <p class="eyebrow">Онлайн-запись</p>
+        <h2 class="section__title">Забронируйте удобное время</h2>
+        <p>Оставьте заявку — администратор подтвердит запись в течение 15 минут.</p>
+      </div>
+
+      <form class="booking" data-booking-form novalidate>
+        <div class="form">
+          <div class="form__field">
+            <label for="bf-name">Имя *</label>
+            <input id="bf-name" name="name" type="text" autocomplete="name" required minlength="2" />
+            <span class="form__error" data-error-for="name" aria-live="polite"></span>
+          </div>
+
+          <div class="form__field">
+            <label for="bf-phone">Телефон *</label>
+            <input id="bf-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required />
+            <span class="form__error" data-error-for="phone" aria-live="polite"></span>
+          </div>
+
+          <div class="form__field">
+            <label for="bf-service">Услуга</label>
+            <select id="bf-service" name="service" required>
+              <option value="">— выберите —</option>
+              <option value="manicure">Маникюр классический</option>
+              <option value="manicure-gel">Маникюр + гель-лак</option>
+              <option value="pedicure">Педикюр</option>
+              <option value="extension">Наращивание (гель)</option>
+              <option value="care">SPA-уход</option>
+            </select>
+            <span class="form__error" data-error-for="service" aria-live="polite"></span>
+          </div>
+
+          <div class="form__field">
+            <label for="bf-master">Мастер</label>
+            <select id="bf-master" name="master">
+              <option value="">Любой свободный</option>
+              <option value="anna">Анна</option>
+              <option value="maria">Мария</option>
+              <option value="ekaterina">Екатерина</option>
+            </select>
+          </div>
+
+          <div class="form__field">
+            <label for="bf-date">Дата</label>
+            <input id="bf-date" name="date" type="date" />
+            <span class="form__error" data-error-for="date" aria-live="polite"></span>
+          </div>
+
+          <div class="form__field">
+            <label for="bf-time">Время</label>
+            <input id="bf-time" name="time" type="time" min="09:00" max="21:00" />
+          </div>
+
+          <div class="form__field form__field--full">
+            <label for="bf-comment">Комментарий</label>
+            <textarea id="bf-comment" name="comment" rows="3" placeholder="Пожелания, референс, особенности здоровья…"></textarea>
+          </div>
+        </div>
+
+        <div class="booking__foot">
+          <button class="btn btn--primary" type="submit">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg>
+            Записаться
+          </button>
+          <p class="price-card__note">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности.</p>
+        </div>
+
+        <div class="booking__alt">
+          <a class="btn btn--ghost btn--sm" href="https://wa.me/79991234567" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="btn btn--ghost btn--sm" href="https://t.me/sakura_nails" target="_blank" rel="noopener">Telegram</a>
+          <a class="btn btn--ghost btn--sm" href="https://dikidi.ru/" target="_blank" rel="noopener">Dikidi</a>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ========== REVIEWS ========== -->
+  <section class="section" id="reviews">
+    <div class="container">
+      <div class="section__head" data-reveal>
+        <p class="eyebrow">Отзывы</p>
+        <h2 class="section__title">Нас выбирают снова</h2>
+        <div class="rating-badge">
+          <b>4.9</b>
+          <div>
+            <span class="stars" aria-label="Рейтинг 4.9 из 5">★★★★★</span>
+            <small>на основе 217 отзывов</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="slider" data-slider aria-roledescription="карусель" aria-label="Отзывы клиентов">
+        <div class="slider__track" data-slider-track>
+          <div class="review">
+            <article class="review__card">
+              <div class="review__top">
+                <img src="https://i.pravatar.cc/120?img=32" alt="Аватар Ольги" loading="lazy" width="120" height="120" />
+                <div><b>Ольга</b><small>16 февраля 2025</small></div>
+              </div>
+              <p>Хожу к Анне полтора года. Форма идеальная, покрытие носится ровно четыре недели. Всегда чисто и пахнет кофе.</p>
+              <span class="stars">★★★★★</span>
+              <div class="review__src">Яндекс.Карты</div>
+            </article>
+          </div>
+          <div class="review">
+            <article class="review__card">
+              <div class="review__top">
+                <img src="https://i.pravatar.cc/120?img=12" alt="Аватар Дмитрия" loading="lazy" width="120" height="120" />
+                <div><b>Дмитрий</b><small>2 февраля 2025</small></div>
+              </div>
+              <p>Первый раз пришёл на педикюр и остался в восторге. Мария всё объяснила, обработала аккуратно, без боли.</p>
+              <span class="stars">★★★★★</span>
+              <div class="review__src">2ГИС</div>
+            </article>
+          </div>
+          <div class="review">
+            <article class="review__card">
+              <div class="review__top">
+                <img src="https://i.pravatar.cc/120?img=45" alt="Аватар Марины" loading="lazy" width="120" height="120" />
+                <div><b>Марина</b><small>28 января 2025</small></div>
+              </div>
+              <p>Екатерина нарисовала ветку сакуры тончайшей кистью — произведение искусства. Держится третью неделю без сколов.</p>
+              <span class="stars">★★★★★</span>
+              <div class="review__src">Яндекс.Карты</div>
+            </article>
+          </div>
+          <div class="review">
+            <article class="review__card">
+              <div class="review__top">
+                <img src="https://i.pravatar.cc/120?img=25" alt="Аватар Ксении" loading="lazy" width="120" height="120" />
+                <div><b>Ксения</b><small>19 января 2025</small></div>
+              </div>
+              <p>Удобно, что можно записаться онлайн и выбрать мастера. Сняли чужое покрытие бережно, без спиливания ногтя.</p>
+              <span class="stars">★★★★★</span>
+              <div class="review__src">2ГИС</div>
+            </article>
+          </div>
+        </div>
+
+        <div class="slider__nav">
+          <button type="button" class="slider__btn" data-slider-prev aria-label="Предыдущий отзыв">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m14 6-6 6 6 6"/></svg>
+          </button>
+          <div class="dots" data-slider-dots aria-hidden="true"></div>
+          <button type="button" class="slider__btn" data-slider-next aria-label="Следующий отзыв">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m10 6 6 6-6 6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PROMO ========== -->
+  <section class="section section--pink" id="promo">
+    <div class="container">
+      <div class="section__head" data-reveal>
+        <p class="eyebrow">Акции</p>
+        <h2 class="section__title">Приятные поводы заглянуть</h2>
+        <p>Скидки не суммируются с другими спецпредложениями.</p>
+      </div>
+
+      <div class="promos">
+        <article class="promo" data-reveal>
+          <div class="promo__val">−20%</div>
+          <h3>На первый визит</h3>
+          <p>Скидка на любую услугу при первой записи через сайт.</p>
+          <span class="promo__kanji" aria-hidden="true">桜</span>
+        </article>
+        <article class="promo promo--accent" data-reveal>
+          <div class="promo__val">15%</div>
+          <h3>Приведи подругу</h3>
+          <p>Обеим скидка 15% на следующий визит.</p>
+          <span class="promo__kanji" aria-hidden="true">花</span>
+        </article>
+        <article class="promo" data-reveal>
+          <div class="promo__val">2 800 ₽</div>
+          <h3>Покрытие + дизайн</h3>
+          <p>Сезонный сет: гель-лак и дизайн на два ногтя.</p>
+          <span class="promo__kanji" aria-hidden="true">春</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== GIFT ========== -->
+  <section class="section" id="gift">
+    <div class="container cert">
+      <div data-reveal>
+        <img src="https://images.unsplash.com/photo-1607083206968-13611e3d76db?auto=format&fit=crop&w=1000&q=80"
+             alt="Подарочный сертификат SAKURA" loading="lazy" width="1000" height="640" />
+      </div>
+      <div data-reveal>
+        <p class="eyebrow">Подарочные сертификаты</p>
+        <h2 class="section__title">Подарите заботу, а не просто вещь</h2>
+        <p>Сертификат действует 6 месяцев, его можно потратить на любые услуги студии.</p>
+
+        <div class="cert__nominals" role="group" aria-label="Номиналы сертификатов">
+          <button type="button" class="nominal is-active" data-nominal="3000">3 000 ₽</button>
+          <button type="button" class="nominal" data-nominal="5000">5 000 ₽</button>
+          <button type="button" class="nominal" data-nominal="10000">10 000 ₽</button>
+        </div>
+
+        <a class="btn btn--primary" href="#booking" data-modal-open="booking">Купить онлайн</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACTS ========== -->
+  <section class="section section--cream" id="contacts">
+    <div class="container">
+      <div class="section__head" data-reveal>
+        <p class="eyebrow">Контакты</p>
+        <h2 class="section__title">Как нас найти</h2>
+        <p>Мы в двух минутах от метро, во дворе с удобной парковкой.</p>
+      </div>
+
+      <div class="contacts" data-reveal>
+        <iframe class="contacts__map"
+          title="Карта: студия SAKURA Nail Studio"
+          src="https://yandex.ru/map-widget/v1/?ll=37.6173%2C55.7558&z=16"
+          loading="lazy" allowfullscreen></iframe>
+
+        <div class="contacts__info">
+          <ul class="contact-list">
+            <li>
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+              <span>ул. Сакуры, 12, офис 3<small>Москва, 101000</small></span>
+            </li>
+            <li>
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 4h3l2 5-2 1c1 2 2.5 3.5 4.5 4.5l1-2 5 2v3c0 1-1 2-2 2A15 15 0 0 1 3 6c0-1 1-2 2-2Z"/></svg>
+              <span><a href="tel:+79991234567">+7 (999) 123-45-67</a><small>Ежедневно 9:00 — 21:00</small></span>
+            </li>
+            <li>
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg>
+              <span><a href="mailto:hello@sakura-nails.ru">hello@sakura-nails.ru</a><small>Ответим в течение дня</small></span>
+            </li>
+          </ul>
+
+          <div class="booking__alt">
+            <a class="btn btn--primary btn--sm" href="https://wa.me/79991234567" target="_blank" rel="noopener">WhatsApp</a>
+            <a class="btn btn--ghost btn--sm" href="https://t.me/sakura_nails" target="_blank" rel="noopener">Telegram</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FAQ ========== -->
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section__head" data-reveal>
+        <p class="eyebrow">FAQ</p>
+        <h2 class="section__title">Частые вопросы</h2>
+      </div>
+
+      <div class="faq" data-accordion data-reveal>
+        <div class="faq__item">
+          <button class="faq__q" type="button" aria-expanded="false">
+            Сколько держится покрытие?
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <div class="faq__a"><p>3–4 недели при правильном уходе. Рекомендуем носить покрытие не дольше четырёх недель.</p></div>
+        </div>
+
+        <div class="faq__item">
+          <button class="faq__q" type="button" aria-expanded="false">
+            Как подготовиться к визиту?
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <div class="faq__a"><p>Не срезайте кутикулу, приходите без покрытия и возьмите наушники, если любите слушать своё.</p></div>
+        </div>
+
+        <div class="faq__item">
+          <button class="faq__q" type="button" aria-expanded="false">
+            Можно ли снять чужое покрытие?
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <div class="faq__a"><p>Да, +500 ₽ к услуге. Снимаем аппаратно или жидкостью, максимально бережно.</p></div>
+        </div>
+
+        <div class="faq__item">
+          <button class="faq__q" type="button" aria-expanded="false">
+            Правила отмены и переноса
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <div class="faq__a"><p>Отменить или перенести визит можно не позднее чем за 24 часа до записи.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== BLOG ========== -->
+  <section class="section section--cream" id="blog">
+    <div class="container">
+      <div class="section__head" data-reveal>
+        <p class="eyebrow">Полезное</p>
+        <h2 class="section__title">Блог студии</h2>
+      </div>
+
+      <div class="posts">
+        <article class="post" data-reveal>
+          <img src="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?auto=format&fit=crop&w=800&q=80" alt="Уход за кутикулой зимой" loading="lazy" width="800" height="500" />
+          <div class="post__body">
+            <span class="post__tag">Уход</span>
+            <h3>Уход за кутикулой зимой</h3>
+            <p>Как питать и защищать кутикулу в холодный сезон, чтобы не было заусенцев.</p>
+            <a class="post__more" href="#blog">Читать <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </article>
+
+        <article class="post" data-reveal>
+          <img src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?auto=format&fit=crop&w=800&q=80" alt="Как продлить жизнь гель-лаку" loading="lazy" width="800" height="500" />
+          <div class="post__body">
+            <span class="post__tag">Маникюр</span>
+            <h3>Как продлить жизнь гель-лаку</h3>
+            <p>Пять привычек, которые помогут покрытию продержаться четыре недели.</p>
+            <a class="post__more" href="#blog">Читать <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </article>
+
+        <article class="post" data-reveal>
+          <img src="https://images.unsplash.com/photo-1610992015732-2449b76344bc?auto=format&fit=crop&w=800&q=80" alt="Тренды дизайна 2025" loading="lazy" width="800" height="500" />
+          <div class="post__body">
+            <span class="post__tag">Тренды</span>
+            <h3>Тренды дизайна 2025</h3>
+            <p>Молочные оттенки, тонкие линии и японские мотивы — что носить в этом году.</p>
+            <a class="post__more" href="#blog">Читать <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <a class="logo logo--footer" href="#hero">
+          <svg class="logo__icon" aria-hidden="true"><use href="#ico-sakura"></use></svg>
+          <span class="logo__text"><b>SAKURA</b> • Nail Studio<small>桜 · студия маникюра</small></span>
+        </a>
+        <p class="footer__desc">Камерная студия маникюра и педикюра в центре Москвы.</p>
+        <div class="footer__soc">
+          <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2Z"/></svg></a>
+          <a href="https://t.me/sakura_nails" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.7 4.3 2.9 11.5c-1 .4-1 1.7 0 2l4.6 1.5 1.8 5.4c.3.8 1.4 1 1.9.3l2.5-2.9 4.8 3.6c.7.5 1.7.1 1.9-.8l3-14.3c.2-.9-.7-1.6-1.7-1.2Z"/></svg></a>
+          <a href="https://wa.me/79991234567" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Z"/></svg></a>
+        </div>
+      </div>
+
+      <div>
+        <h4>Навигация</h4>
+        <ul>
+          <li><a href="#about">О нас</a></li>
+          <li><a href="#services">Услуги и цены</a></li>
+          <li><a href="#portfolio">Портфолио</a></li>
+          <li><a href="#masters">Мастера</a></li>
+          <li><a href="#reviews">Отзывы</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Гостям</h4>
+        <ul>
+          <li><a href="#booking">Онлайн-запись</a></li>
+          <li><a href="#promo">Акции</a></li>
+          <li><a href="#gift">Сертификаты</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#blog">Блог</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Контакты</h4>
+        <ul>
+          <li><a href="tel:+79991234567">+7 (999) 123-45-67</a></li>
+          <li><a href="mailto:hello@sakura-nails.ru">hello@sakura-nails.ru</a></li>
+          <li>ул. Сакуры, 12, офис 3</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <span>© <span data-year>2025</span> SAKURA Nail Studio. Все права защищены.</span>
+      <a href="#">Политика конфиденциальности</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ========== FLOATING BUTTONS ========== -->
+<a class="fab-book" href="#booking" data-modal-open="booking" aria-label="Записаться онлайн">
+  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>
+  Записаться
+</a>
+
+<button class="to-top" type="button" data-to-top aria-label="Наверх">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+</button>
+
+<!-- ========== LIGHTBOX ========== -->
+<div class="lightbox" data-lightbox role="dialog" aria-modal="true" aria-label="Просмотр работы" hidden>
+  <img class="lightbox__img" data-lightbox-img src="" alt="" />
+  <button class="lb-btn lb-close" type="button" data-lightbox-close aria-label="Закрыть">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m6 6 12 12M18 6 6 18"/></svg>
+  </button>
+  <button class="lb-btn lb-prev" type="button" data-lightbox-prev aria-label="Предыдущее фото">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m14 6-6 6 6 6"/></svg>
+  </button>
+  <button class="lb-btn lb-next" type="button" data-lightbox-next aria-label="Следующее фото">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m10 6 6 6-6 6"/></svg>
+  </button>
+  <p class="lightbox__cap" data-lightbox-cap></p>
+</div>
+
+<!-- ========== MODAL (запись) ========== -->
+<div class="modal" data-modal hidden>
+  <div class="modal__backdrop" data-modal-close></div>
+  <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal__close" type="button" data-modal-close aria-label="Закрыть">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m6 6 12 12M18 6 6 18"/></svg>
+    </button>
+    <h2 class="modal__title" id="modalTitle">Онлайн-запись</h2>
+    <p class="modal__lead">Оставьте заявку — администратор подтвердит запись в течение 15 минут.</p>
+
+    <form class="booking" data-booking-form novalidate>
+      <div class="form">
+        <div class="form__field">
+          <label for="mf-name">Имя *</label>
+          <input id="mf-name" name="name" type="text" autocomplete="name" required minlength="2" />
+          <span class="form__error" data-error-for="name" aria-live="polite"></span>
+        </div>
+        <div class="form__field">
+          <label for="mf-phone">Телефон *</label>
+          <input id="mf-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required />
+          <span class="form__error" data-error-for="phone" aria-live="polite"></span>
+        </div>
+        <div class="form__field">
+          <label for="mf-service">Услуга</label>
+          <select id="mf-service" name="service" required>
+            <option value="">— выберите —</option>
+            <option value="manicure">Маникюр классический</option>
+            <option value="manicure-gel">Маникюр + гель-лак</option>
+            <option value="pedicure">Педикюр</option>
+            <option value="extension">Наращивание (гель)</option>
+          </select>
+          <span class="form__error" data-error-for="service" aria-live="polite"></span>
+        </div>
+        <div class="form__field">
+          <label for="mf-date">Дата</label>
+          <input id="mf-date" name="date" type="date" />
+          <span class="form__error" data-error-for="date" aria-live="polite"></span>
+        </div>
+      </div>
+      <div class="booking__foot">
+        <button class="btn btn--primary" type="submit">Отправить</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ========== TOAST ========== -->
+<div class="toast" data-toast role="status" aria-live="polite" hidden>
+  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg>
+  <span data-toast-text>Заявка отправлена!</span>
+</div>
+
+</body>
+</html>
