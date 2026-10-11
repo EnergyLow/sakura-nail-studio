@@ -376,6 +376,12 @@ const Utils = (() => {
 
 /* ===== 11. BOOKING FORM ===== */
 (() => {
+  /**
+   * URL Edge Function для приёма заявок.
+   * Замени project-ref на свой, если он отличается.
+   */
+  const SUPABASE_FUNCTION_URL = 'https://bkllrdtnzjfesebmbcoa.supabase.co/functions/v1/booking';
+
   const forms = Utils.$$('[data-booking-form]');
   if (!forms.length) return;
 
@@ -393,7 +399,7 @@ const Utils = (() => {
       return 'Выберите услугу';
     }
     if (input.name === 'date' && v) {
-      const today = new Date(); today.setHours(0,0,0,0);
+      const today = new Date(); today.setHours(0, 0, 0, 0);
       const chosen = new Date(v);
       if (isNaN(chosen.getTime())) return 'Некорректная дата';
       if (chosen < today) return 'Дата не может быть в прошлом';
@@ -410,7 +416,7 @@ const Utils = (() => {
     err.textContent = message;
   };
 
-  /** Toast */
+  /** Toast-уведомление */
   const toast = Utils.$('[data-toast]');
   const toastText = Utils.$('[data-toast-text]');
   const showToast = (msg) => {
@@ -430,17 +436,21 @@ const Utils = (() => {
     const dateInput = Utils.$('input[name="date"]', form);
     if (dateInput) {
       const now = new Date();
-      const iso = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+      const iso = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
       dateInput.min = iso;
     }
 
     // live-валидация
     Utils.$$('input, select', form).forEach(el => {
       el.addEventListener('blur', () => setError(el, validateField(el)));
-      el.addEventListener('input', () => { if (el.closest('.form__field')?.classList.contains('is-invalid')) setError(el, validateField(el)); });
+      el.addEventListener('input', () => {
+        if (el.closest('.form__field')?.classList.contains('is-invalid')) {
+          setError(el, validateField(el));
+        }
+      });
     });
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       let firstInvalid = null;
 
@@ -450,18 +460,54 @@ const Utils = (() => {
         if (msg && !firstInvalid) firstInvalid = el;
       });
 
-      if (firstInvalid) { firstInvalid.focus(); return; }
+      if (firstInvalid) {
+        firstInvalid.focus();
+        return;
+      }
 
-      // TODO: заменить на реальную отправку (fetch → backend / CRM / Telegram Bot API)
       const payload = Object.fromEntries(new FormData(form).entries());
-      console.log('[SAKURA] Заявка:', payload);
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalText = submitBtn?.textContent || '';
 
-      showToast('Заявка отправлена! Администратор свяжется с вами.');
-      form.reset();
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Отправляем...';
+      }
 
-      // закрыть модалку, если форма была внутри неё
-      const modal = form.closest('[data-modal]');
-      if (modal && window.ModalModule) window.ModalModule.closeAll();
+      try {
+        const res = await fetch(SUPABASE_FUNCTION_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        const result = await res.json().catch(() => ({}));
+
+        if (!res.ok) {
+          throw new Error(result.error || 'Не удалось отправить заявку');
+        }
+
+        showToast('Заявка отправлена! Администратор свяжется с вами.');
+        form.reset();
+
+        // сброс даты и времени после reset
+        const d = Utils.$('input[name="date"]', form);
+        const t = Utils.$('input[name="time"]', form);
+        if (d) d.value = '';
+        if (t) t.value = '';
+
+        // закрыть модалку, если форма была внутри неё
+        const modal = form.closest('[data-modal]');
+        if (modal && window.ModalModule) window.ModalModule.closeAll();
+      } catch (err) {
+        console.error('[SAKURA] Booking error:', err);
+        showToast(err.message || 'Ошибка отправки. Позвоните нам.');
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+        }
+      }
     });
   });
 
@@ -528,7 +574,6 @@ const Utils = (() => {
 
   const openers = Utils.$$('[data-modal-open]');
   const closers = Utils.$$('[data-modal-close]', modal);
-  const dialog  = Utils.$('.modal__dialog', modal);
   let lastFocused = null;
 
   const open = () => {
@@ -611,7 +656,6 @@ const Utils = (() => {
   /**
    * Устанавливает положение разделителя.
    * @param {number} clientX — координата курсора/пальца по X
-   * Двигает И линию, И ручку, И clip-path синхронно.
    */
   const setPos = (clientX) => {
     const r = ba.getBoundingClientRect();
@@ -628,9 +672,7 @@ const Utils = (() => {
   const onDown = (e) => {
     dragging = true;
     ba.classList.add('is-dragging');
-    // сразу «прыгаем» под курсор, чтобы не было инерции
     setPos(e.touches ? e.touches[0].clientX : e.clientX);
-    // ловим движение за пределами блока тоже
     window.addEventListener('mousemove', onMove);
     window.addEventListener('touchmove', onMove, { passive: false });
     window.addEventListener('mouseup', onUp);
@@ -640,7 +682,6 @@ const Utils = (() => {
 
   const onMove = (e) => {
     if (!dragging) return;
-    // важно: preventDefault на touchmove — чтобы не скроллилась страница
     if (e.cancelable) e.preventDefault();
     setPos(e.touches ? e.touches[0].clientX : e.clientX);
   };
@@ -655,11 +696,10 @@ const Utils = (() => {
     window.removeEventListener('touchcancel', onUp);
   };
 
-  // Слушаем только начало перетаскивания на самом блоке
   ba.addEventListener('mousedown', onDown);
   ba.addEventListener('touchstart', onDown, { passive: true });
 
-  // Управление стрелками — для доступности
+  // Доступность: клавиатура
   ba.setAttribute('tabindex', '0');
   ba.setAttribute('role', 'slider');
   ba.setAttribute('aria-valuemin', '0');
