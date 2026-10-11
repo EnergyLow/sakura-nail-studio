@@ -333,11 +333,10 @@ small{font-size:.8em}
   will-change:left;
 }
 .ba__knob svg{
-  width:30px;
-  height:30px;
+  width:18px;
+  height:18px;
   stroke-width:1.5;
 }
-/* увеличиваем зону захвата ручки — по всей высоте линии */
 .ba__knob::before{
   content:"";
   position:absolute;
@@ -415,9 +414,13 @@ small{font-size:.8em}
 /* ===== 12. BOOKING ===== */
 .booking{background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);padding:clamp(22px,4vw,44px)}
 .form{display:grid;gap:16px;grid-template-columns:1fr}
-.form__field{display:flex;flex-direction:column;gap:6px}
+.form__field{display:flex;flex-direction:column;gap:6px;min-width:0}
 .form__field label{font-size:.78rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--color-muted)}
-.form__field input,.form__field select,.form__field textarea{
+.form__field input,
+.form__field select,
+.form__field textarea{
+  width:100%;
+  min-width:0;
   padding:13px 16px;border-radius:14px;border:1px solid var(--color-border);
   background:var(--color-surface);
   transition:border-color var(--transition),box-shadow var(--transition),background var(--transition);
@@ -427,6 +430,7 @@ small{font-size:.8em}
   outline:none;border-color:var(--color-accent);background:#fff;
   box-shadow:0 0 0 4px rgba(214,123,138,.14);
 }
+.form__field input::placeholder{color:var(--color-muted);opacity:.6;font-size:.9rem}
 .form__error{font-size:.75rem;color:var(--color-accent-dark);min-height:1em;font-weight:500}
 .form__field.is-invalid input,.form__field.is-invalid select{border-color:var(--color-accent-dark);background:#fff5f7}
 
@@ -585,9 +589,17 @@ small{font-size:.8em}
 .modal{position:fixed;inset:0;z-index:1100;display:grid;place-items:center;padding:20px}
 .modal__backdrop{position:absolute;inset:0;background:rgba(43,43,43,.55);backdrop-filter:blur(4px)}
 .modal__dialog{
-  position:relative;z-index:1;background:#fff;border-radius:var(--radius-lg);
-  padding:clamp(24px,4vw,40px);max-width:640px;width:100%;max-height:90vh;overflow-y:auto;
-  box-shadow:var(--shadow-lg);animation:fadeUp .35s ease;
+  position:relative;
+  z-index:1;
+  background:#fff;
+  border-radius:var(--radius-lg);
+  padding:clamp(20px,3vw,32px);
+  max-width:720px;
+  width:100%;
+  max-height:90vh;
+  overflow-y:auto;
+  box-shadow:var(--shadow-lg);
+  animation:fadeUp .35s ease;
 }
 .modal__close{
   position:absolute;top:14px;right:14px;width:40px;height:40px;border-radius:50%;
@@ -597,6 +609,15 @@ small{font-size:.8em}
 .modal__close svg{width:20px;height:20px}
 .modal__title{font-size:1.6rem;margin-bottom:6px}
 .modal__lead{color:var(--color-muted);font-size:.9rem;margin-bottom:22px}
+
+/* Форма внутри модалки — одна колонка, чтобы поля не выпирали за края */
+.modal__dialog .form{grid-template-columns:1fr}
+.modal__dialog .form__field--full{grid-column:auto}
+
+@media (min-width:640px){
+  .modal__dialog .form{grid-template-columns:1fr 1fr}
+  .modal__dialog .form__field--full{grid-column:1 / -1}
+}
 
 .toast{
   position:fixed;z-index:1200;left:50%;bottom:26px;transform:translate(-50%,140%);
