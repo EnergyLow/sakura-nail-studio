@@ -23,7 +23,6 @@ ul,ol{list-style:none}
 
 /* ===== 2. CSS VARIABLES ===== */
 :root{
-  /* Colors */
   --color-bg:#FFFFFF;
   --color-surface:#FDF6F0;
   --color-surface-2:#F8D7DA;
@@ -35,25 +34,20 @@ ul,ol{list-style:none}
   --color-border:rgba(43,43,43,.10);
   --color-star:#E8A33D;
 
-  /* Fonts */
   --font-heading:'Playfair Display',Georgia,serif;
   --font-body:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 
-  /* Radii */
   --radius-sm:12px;
   --radius-md:20px;
   --radius-lg:28px;
 
-  /* Shadows */
   --shadow-sm:0 4px 16px rgba(199,62,92,.06);
   --shadow-md:0 12px 34px rgba(199,62,92,.10);
   --shadow-lg:0 24px 60px rgba(199,62,92,.16);
 
-  /* Layout */
   --container:1200px;
   --header-h:76px;
 
-  /* Transition */
   --transition:.35s cubic-bezier(.2,.8,.3,1);
 }
 
@@ -94,7 +88,6 @@ small{font-size:.8em}
 .icon{width:18px;height:18px;flex:0 0 auto}
 .icon--sm{width:15px;height:15px}
 
-/* Buttons */
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:9px;
   padding:14px 26px;border-radius:100px;font-weight:500;font-size:.94rem;
@@ -111,7 +104,6 @@ small{font-size:.8em}
 .btn--white:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
 .btn--sm{padding:10px 20px;font-size:.85rem}
 
-/* Reveal */
 [data-reveal]{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.2,.8,.3,1),transform .8s cubic-bezier(.2,.8,.3,1)}
 [data-reveal].is-visible{opacity:1;transform:none}
 
@@ -157,7 +149,6 @@ small{font-size:.8em}
 .burger.is-open span:nth-child(2){opacity:0}
 .burger.is-open span:nth-child(3){transform:translateY(-6.6px) rotate(-45deg)}
 
-/* Mobile menu */
 .mobile-menu{
   position:fixed;inset:0 0 0 auto;width:min(88vw,380px);z-index:950;
   background:rgba(255,255,255,.94);backdrop-filter:blur(22px);
@@ -360,6 +351,12 @@ small{font-size:.8em}
 }
 .ba__tag--before{left:14px}
 .ba__tag--after{right:14px;background:var(--color-accent-dark);color:#fff}
+
+.brands{display:flex;flex-wrap:wrap;gap:10px 14px;justify-content:center;margin-top:34px}
+.brand{
+  padding:9px 20px;border-radius:100px;background:#fff;border:1px solid var(--color-border);
+  font-size:.8rem;font-weight:600;letter-spacing:.14em;color:var(--color-muted);text-transform:uppercase;
+}
 
 /* ===== 10. PORTFOLIO ===== */
 .chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:30px}
@@ -610,7 +607,6 @@ small{font-size:.8em}
 .modal__title{font-size:1.6rem;margin-bottom:6px}
 .modal__lead{color:var(--color-muted);font-size:.9rem;margin-bottom:22px}
 
-/* Форма внутри модалки — одна колонка, чтобы поля не выпирали за края */
 .modal__dialog .form{grid-template-columns:1fr}
 .modal__dialog .form__field--full{grid-column:auto}
 
@@ -707,4 +703,55 @@ small{font-size:.8em}
 @media (min-width:1200px){
   :root{--container:1280px}
   body{font-size:17px}
+}
+
+/* ===== 24. REVIEWS: CTA + FORM ===== */
+.reviews__cta {
+  text-align: center;
+  margin-top: 32px;
+}
+
+.rating-input {
+  display: flex;
+  gap: 6px;
+  font-size: 2rem;
+  line-height: 1;
+  color: #ddd;
+  cursor: pointer;
+  user-select: none;
+}
+.rating-input__star {
+  transition: color .15s ease, transform .15s ease;
+  padding: 0;
+  background: none;
+  border: none;
+  font-size: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.rating-input__star.is-hover,
+.rating-input__star.is-active {
+  color: var(--color-star);
+}
+.rating-input__star:hover {
+  transform: scale(1.1);
+}
+.rating-input__star:focus-visible {
+  outline: 2px solid var(--color-accent-dark);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.form__field--honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 600px) {
+  .rating-input { font-size: 1.6rem; }
 }

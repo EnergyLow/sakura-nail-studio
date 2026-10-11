@@ -6,29 +6,20 @@
 
 /* ===== 1. UTILS ===== */
 const Utils = (() => {
-  /** $ и $$ — обёртки над querySelector/querySelectorAll */
   const $  = (sel, ctx = document) => ctx.querySelector(sel);
   const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 
-  /** throttle — ограничивает частоту вызова (по rAF) */
   const throttle = (fn) => {
     let raf = null;
     return (...args) => {
       if (raf) return;
-      raf = requestAnimationFrame(() => {
-        fn(...args);
-        raf = null;
-      });
+      raf = requestAnimationFrame(() => { fn(...args); raf = null; });
     };
   };
 
-  /** debounce — откладывает вызов на wait мс */
   const debounce = (fn, wait = 150) => {
     let t;
-    return (...args) => {
-      clearTimeout(t);
-      t = setTimeout(() => fn(...args), wait);
-    };
+    return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), wait); };
   };
 
   return { $, $$, throttle, debounce };
@@ -50,14 +41,10 @@ const Utils = (() => {
     document.body.style.overflow = open ? 'hidden' : '';
   };
 
-  burger.addEventListener('click', () =>
-    setState(!burger.classList.contains('is-open'))
-  );
+  burger.addEventListener('click', () => setState(!burger.classList.contains('is-open')));
   overlay.addEventListener('click', () => setState(false));
   Utils.$$('a', menu).forEach(a => a.addEventListener('click', () => setState(false)));
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') setState(false);
-  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') setState(false); });
 })();
 
 /* ===== 3. SMOOTH SCROLL ===== */
@@ -68,8 +55,6 @@ const Utils = (() => {
     if (!link) return;
     const id = link.getAttribute('href');
     if (!id || id === '#' || id.length < 2) return;
-
-    // ссылки, открывающие модалку, обрабатываются отдельным модулем — пропускаем
     if (link.hasAttribute('data-modal-open')) return;
 
     const target = document.getElementById(id.slice(1));
@@ -111,7 +96,6 @@ const Utils = (() => {
       io.unobserve(entry.target);
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
-
   items.forEach(el => io.observe(el));
 })();
 
@@ -123,7 +107,6 @@ const Utils = (() => {
   const panels = Utils.$$('[data-panel]');
   const STORAGE_KEY = 'sakura:activeTab';
 
-  /** activate(name) — активирует панель и таб с совпадающим data-* именем */
   const activate = (name) => {
     tabs.forEach(t => {
       const on = t.dataset.tab === name;
@@ -133,8 +116,7 @@ const Utils = (() => {
     panels.forEach(p => {
       const on = p.dataset.panel === name;
       p.classList.toggle('is-active', on);
-      if (on) p.removeAttribute('hidden');
-      else p.setAttribute('hidden', '');
+      if (on) p.removeAttribute('hidden'); else p.setAttribute('hidden', '');
     });
   };
 
@@ -144,7 +126,6 @@ const Utils = (() => {
     try { localStorage.setItem(STORAGE_KEY, name); } catch (_) {}
   }));
 
-  // восстановление активного таба
   let saved = null;
   try { saved = localStorage.getItem(STORAGE_KEY); } catch (_) {}
   if (saved && tabs.some(t => t.dataset.tab === saved)) activate(saved);
@@ -159,7 +140,6 @@ const Utils = (() => {
   const chips = Utils.$$('.chip', filtersBox);
   const items = Utils.$$('.gallery__item', gallery);
 
-  /** applyFilter(name) — скрывает/показывает карточки по data-cat */
   const applyFilter = (name) => {
     items.forEach(item => {
       const match = name === 'all' || item.dataset.cat === name;
@@ -168,7 +148,6 @@ const Utils = (() => {
     });
   };
 
-  // делегирование клика
   filtersBox.addEventListener('click', (e) => {
     const chip = e.target.closest('.chip');
     if (!chip) return;
@@ -179,13 +158,13 @@ const Utils = (() => {
 
 /* ===== 8. LIGHTBOX ===== */
 (() => {
-  const lb     = Utils.$('[data-lightbox]');
-  const lbImg  = Utils.$('[data-lightbox-img]');
-  const lbCap  = Utils.$('[data-lightbox-cap]');
+  const lb      = Utils.$('[data-lightbox]');
+  const lbImg   = Utils.$('[data-lightbox-img]');
+  const lbCap   = Utils.$('[data-lightbox-cap]');
   const gallery = Utils.$('[data-gallery]');
   if (!lb || !lbImg || !gallery) return;
 
-  let visible = [];       // список видимых figure
+  let visible = [];
   let index   = 0;
   let lastFocused = null;
 
@@ -226,7 +205,6 @@ const Utils = (() => {
     render();
   };
 
-  // делегирование открытия
   gallery.addEventListener('click', (e) => {
     const fig = e.target.closest('.gallery__item');
     if (fig) open(fig);
@@ -239,7 +217,6 @@ const Utils = (() => {
     open(fig);
   });
 
-  // навигация
   Utils.$('[data-lightbox-close]', lb)?.addEventListener('click', close);
   Utils.$('[data-lightbox-prev]',  lb)?.addEventListener('click', () => step(-1));
   Utils.$('[data-lightbox-next]',  lb)?.addEventListener('click', () => step(1));
@@ -250,35 +227,27 @@ const Utils = (() => {
     if (e.key === 'Escape')     close();
     if (e.key === 'ArrowLeft')  step(-1);
     if (e.key === 'ArrowRight') step(1);
-    if (e.key === 'Tab') {
-      // простой focus-trap
-      const focusables = Utils.$$('button', lb);
-      if (!focusables.length) return;
-      const first = focusables[0];
-      const last  = focusables[focusables.length - 1];
-      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-    }
   });
 })();
 
 /* ===== 9. REVIEWS SLIDER ===== */
 (() => {
-  const root  = Utils.$('[data-slider]');
+  const root = Utils.$('[data-slider]');
   if (!root) return;
   const track = Utils.$('[data-slider-track]', root);
-  const slides = Utils.$$('.review', track);
+  if (!track) return;
+
   const dotsBox = Utils.$('[data-slider-dots]', root);
   const prevBtn = Utils.$('[data-slider-prev]', root);
   const nextBtn = Utils.$('[data-slider-next]', root);
-  if (!track || !slides.length) return;
 
   let index = 0;
   let autoplayId = null;
   const AUTOPLAY = 5000;
 
+  const slides = () => Utils.$$('.review', track);
   const perView = () => window.innerWidth >= 1024 ? 3 : window.innerWidth >= 768 ? 2 : 1;
-  const maxIndex = () => Math.max(0, slides.length - perView());
+  const maxIndex = () => Math.max(0, slides().length - perView());
 
   const buildDots = () => {
     if (!dotsBox) return;
@@ -304,24 +273,20 @@ const Utils = (() => {
   const startAutoplay = () => { stopAutoplay(); autoplayId = setInterval(next, AUTOPLAY); };
   const stopAutoplay  = () => { if (autoplayId) clearInterval(autoplayId); autoplayId = null; };
 
-  prevBtn?.addEventListener('click', () => { goTo(index - 1); startAutoplay(); });
-  nextBtn?.addEventListener('click', () => { goTo(index + 1); startAutoplay(); });
+  prevBtn?.addEventListener('click', () => { prev(); startAutoplay(); });
+  nextBtn?.addEventListener('click', () => { next(); startAutoplay(); });
   root.addEventListener('mouseenter', stopAutoplay);
   root.addEventListener('mouseleave', startAutoplay);
 
-  // свайпы
   let touchStartX = 0;
-  let touchEndX   = 0;
   root.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
-  root.addEventListener('touchend',   (e) => {
-    touchEndX = e.changedTouches[0].clientX;
-    const dx = touchEndX - touchStartX;
+  root.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
     if (Math.abs(dx) < 40) return;
     dx > 0 ? prev() : next();
     startAutoplay();
   });
 
-  // пересчёт при ресайзе
   window.addEventListener('resize', Utils.debounce(() => {
     buildDots();
     goTo(Math.min(index, maxIndex()));
@@ -330,6 +295,75 @@ const Utils = (() => {
   buildDots();
   goTo(0);
   startAutoplay();
+
+  window.SakuraSlider = { rebuild: () => { buildDots(); goTo(0); } };
+})();
+
+/* ===== 9.5. LOAD REVIEWS FROM SUPABASE ===== */
+(() => {
+  const SUPABASE_URL = 'https://bkllrdtnzjfesebmbcoa.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_iTU-BbsV7Or--512H6N2tg_liAMTnvE';
+  const TRACK = Utils.$('[data-slider-track]');
+  if (!TRACK) return;
+
+  const escapeHtml = (str) => {
+    const div = document.createElement('div');
+    div.textContent = String(str ?? '');
+    return div.innerHTML;
+  };
+
+  const renderReviews = (reviews) => {
+    if (!reviews.length) return;
+    TRACK.innerHTML = '';
+    reviews.forEach(review => {
+      const rating = Math.max(1, Math.min(5, review.rating || 5));
+      const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+      const date = new Date(review.created_at).toLocaleDateString('ru-RU', {
+        day: 'numeric', month: 'long', year: 'numeric',
+      });
+      const slide = document.createElement('div');
+      slide.className = 'review';
+      slide.innerHTML = `
+        <article class="review__card">
+          <div class="review__top">
+            <img src="https://i.pravatar.cc/120?u=${encodeURIComponent(review.name)}" alt="Аватар ${escapeHtml(review.name)}" loading="lazy" width="120" height="120" />
+            <div><b>${escapeHtml(review.name)}</b><small>${date}</small></div>
+          </div>
+          <p>${escapeHtml(review.text)}</p>
+          <span class="stars">${stars}</span>
+          <div class="review__src">Сайт студии</div>
+        </article>
+      `;
+      TRACK.appendChild(slide);
+    });
+
+    if (window.SakuraSlider) window.SakuraSlider.rebuild();
+  };
+
+  const fetchReviews = async () => {
+    if (SUPABASE_ANON_KEY.includes('ВСТАВЬ')) {
+      console.warn('[SAKURA] Заполни SUPABASE_ANON_KEY в main.js');
+      return;
+    }
+    try {
+      const res = await fetch(
+        `${SUPABASE_URL}/rest/v1/reviews?select=*&is_published=eq.true&order=created_at.desc&limit=20`,
+        {
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          },
+        }
+      );
+      if (!res.ok) throw new Error('Failed to load reviews');
+      const reviews = await res.json();
+      renderReviews(reviews);
+    } catch (err) {
+      console.error('[SAKURA] Ошибка загрузки отзывов:', err);
+    }
+  };
+
+  fetchReviews();
 })();
 
 /* ===== 10. FAQ ACCORDION ===== */
@@ -338,7 +372,6 @@ const Utils = (() => {
   if (!acc) return;
   const items = Utils.$$('.faq__item', acc);
 
-  /** close(item) — плавно закрывает элемент */
   const close = (item) => {
     item.classList.remove('is-open');
     const body = Utils.$('.faq__a', item);
@@ -364,40 +397,19 @@ const Utils = (() => {
     items.forEach(close);
     if (!isOpen) open(item);
   });
-
-  // пересчёт высоты при ресайзе
-  window.addEventListener('resize', Utils.debounce(() => {
-    items.filter(i => i.classList.contains('is-open')).forEach(i => {
-      const body = Utils.$('.faq__a', i);
-      if (body) body.style.maxHeight = body.scrollHeight + 'px';
-    });
-  }, 180));
 })();
 
 /* ===== 11. BOOKING FORM ===== */
 (() => {
-  /**
-   * URL Edge Function для приёма заявок.
-   * Замени project-ref на свой, если он отличается.
-   */
   const SUPABASE_FUNCTION_URL = 'https://bkllrdtnzjfesebmbcoa.supabase.co/functions/v1/booking';
-
   const forms = Utils.$$('[data-booking-form]');
   if (!forms.length) return;
 
-  /** Валидация одного поля, возвращает сообщение об ошибке или '' */
   const validateField = (input) => {
     const v = (input.value || '').trim();
-    if (input.name === 'name') {
-      if (v.length < 2) return 'Укажите имя (минимум 2 символа)';
-    }
-    if (input.name === 'phone') {
-      const digits = v.replace(/\D/g, '');
-      if (digits.length !== 11) return 'Введите телефон полностью';
-    }
-    if (input.name === 'service' && input.hasAttribute('required') && !v) {
-      return 'Выберите услугу';
-    }
+    if (input.name === 'name' && v.length < 2) return 'Укажите имя (минимум 2 символа)';
+    if (input.name === 'phone' && v.replace(/\D/g, '').length !== 11) return 'Введите телефон полностью';
+    if (input.name === 'service' && input.hasAttribute('required') && !v) return 'Выберите услугу';
     if (input.name === 'date' && v) {
       const today = new Date(); today.setHours(0, 0, 0, 0);
       const chosen = new Date(v);
@@ -407,7 +419,6 @@ const Utils = (() => {
     return '';
   };
 
-  /** Показывает ошибку под полем или очищает её */
   const setError = (input, message) => {
     const field = input.closest('.form__field');
     const err = field?.querySelector('.form__error');
@@ -416,7 +427,6 @@ const Utils = (() => {
     err.textContent = message;
   };
 
-  /** Toast-уведомление */
   const toast = Utils.$('[data-toast]');
   const toastText = Utils.$('[data-toast-text]');
   const showToast = (msg) => {
@@ -432,7 +442,6 @@ const Utils = (() => {
   };
 
   forms.forEach(form => {
-    // запрет прошедших дат
     const dateInput = Utils.$('input[name="date"]', form);
     if (dateInput) {
       const now = new Date();
@@ -440,7 +449,6 @@ const Utils = (() => {
       dateInput.min = iso;
     }
 
-    // live-валидация
     Utils.$$('input, select', form).forEach(el => {
       el.addEventListener('blur', () => setError(el, validateField(el)));
       el.addEventListener('input', () => {
@@ -453,26 +461,18 @@ const Utils = (() => {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       let firstInvalid = null;
-
       Utils.$$('input, select', form).forEach(el => {
         const msg = validateField(el);
         setError(el, msg);
         if (msg && !firstInvalid) firstInvalid = el;
       });
-
-      if (firstInvalid) {
-        firstInvalid.focus();
-        return;
-      }
+      if (firstInvalid) { firstInvalid.focus(); return; }
 
       const payload = Object.fromEntries(new FormData(form).entries());
       const submitBtn = form.querySelector('button[type="submit"]');
       const originalText = submitBtn?.textContent || '';
 
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Отправляем...';
-      }
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Отправляем...'; }
 
       try {
         const res = await fetch(SUPABASE_FUNCTION_URL, {
@@ -480,39 +480,120 @@ const Utils = (() => {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),
         });
-
         const result = await res.json().catch(() => ({}));
-
-        if (!res.ok) {
-          throw new Error(result.error || 'Не удалось отправить заявку');
-        }
+        if (!res.ok) throw new Error(result.error || 'Не удалось отправить заявку');
 
         showToast('Заявка отправлена! Администратор свяжется с вами.');
         form.reset();
-
-        // сброс даты и времени после reset
         const d = Utils.$('input[name="date"]', form);
         const t = Utils.$('input[name="time"]', form);
         if (d) d.value = '';
         if (t) t.value = '';
 
-        // закрыть модалку, если форма была внутри неё
         const modal = form.closest('[data-modal]');
         if (modal && window.ModalModule) window.ModalModule.closeAll();
       } catch (err) {
         console.error('[SAKURA] Booking error:', err);
         showToast(err.message || 'Ошибка отправки. Позвоните нам.');
       } finally {
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.textContent = originalText;
-        }
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalText; }
       }
     });
   });
 
-  // экспортируем showToast глобально для других модулей
   window.SakuraToast = { show: showToast };
+})();
+
+/* ===== 11.5. REVIEW FORM ===== */
+(() => {
+  const SUBMIT_REVIEW_URL = 'https://bkllrdtnzjfesebmbcoa.supabase.co/functions/v1/submit-review';
+  const form = Utils.$('[data-review-form]');
+  if (!form) return;
+
+  const ratingInput = Utils.$('[data-rating-input]', form);
+  const ratingHidden = Utils.$('[data-rating-value-input]', form);
+  let currentRating = 0;
+
+  if (ratingInput && ratingHidden) {
+    const stars = Utils.$$('.rating-input__star', ratingInput);
+    stars.forEach(star => {
+      star.addEventListener('click', () => {
+        currentRating = parseInt(star.dataset.value, 10);
+        ratingHidden.value = currentRating;
+        stars.forEach(s => s.classList.toggle('is-active', parseInt(s.dataset.value, 10) <= currentRating));
+      });
+      star.addEventListener('mouseenter', () => {
+        const hoverVal = parseInt(star.dataset.value, 10);
+        stars.forEach(s => s.classList.toggle('is-hover', parseInt(s.dataset.value, 10) <= hoverVal));
+      });
+    });
+    ratingInput.addEventListener('mouseleave', () => {
+      stars.forEach(s => s.classList.remove('is-hover'));
+    });
+  }
+
+  const setError = (input, message) => {
+    const field = input.closest('.form__field');
+    const err = field?.querySelector('.form__error');
+    if (!field || !err) return;
+    field.classList.toggle('is-invalid', !!message);
+    err.textContent = message;
+  };
+
+  const validateField = (input) => {
+    const v = (input.value || '').trim();
+    if (input.name === 'name' && v.length < 2) return 'Укажите имя (минимум 2 символа)';
+    if (input.name === 'text' && v.length < 10) return 'Текст минимум 10 символов';
+    if (input.name === 'rating' && (!v || parseInt(v, 10) < 1)) return 'Поставьте оценку';
+    return '';
+  };
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    let firstInvalid = null;
+    Utils.$$('input, textarea', form).forEach(el => {
+      if (el.name === 'honeypot') return;
+      const msg = validateField(el);
+      setError(el, msg);
+      if (msg && !firstInvalid) firstInvalid = el;
+    });
+    if (firstInvalid) { firstInvalid.focus(); return; }
+
+    const payload = {
+      name: form.querySelector('[name="name"]').value.trim(),
+      rating: form.querySelector('[name="rating"]').value,
+      text: form.querySelector('[name="text"]').value.trim(),
+      honeypot: form.querySelector('[name="honeypot"]')?.value || '',
+    };
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn?.textContent || '';
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Отправляем...'; }
+
+    try {
+      const res = await fetch(SUBMIT_REVIEW_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const result = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(result.error || 'Не удалось отправить отзыв');
+
+      if (window.SakuraToast) window.SakuraToast.show('Спасибо! Отзыв отправлен на модерацию.');
+      form.reset();
+      currentRating = 0;
+      if (ratingHidden) ratingHidden.value = '';
+      Utils.$$('.rating-input__star', ratingInput).forEach(s => s.classList.remove('is-active'));
+
+      const modal = form.closest('[data-modal]');
+      if (modal && window.ModalModule) window.ModalModule.closeAll();
+    } catch (err) {
+      console.error('[SAKURA] Review error:', err);
+      if (window.SakuraToast) window.SakuraToast.show(err.message || 'Ошибка отправки');
+    } finally {
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalText; }
+    }
+  });
 })();
 
 /* ===== 12. PHONE MASK ===== */
@@ -520,19 +601,13 @@ const Utils = (() => {
   const inputs = Utils.$$('input[type="tel"]');
   if (!inputs.length) return;
 
-  /** Форматирует строку цифр в +7 (___) ___-__-__ */
   const format = (raw) => {
     let v = (raw || '').replace(/\D/g, '');
     if (!v) return '';
     if (v[0] === '8') v = '7' + v.slice(1);
     if (v[0] !== '7') v = '7' + v;
     v = v.slice(0, 11);
-
-    const p1 = v.slice(1, 4);
-    const p2 = v.slice(4, 7);
-    const p3 = v.slice(7, 9);
-    const p4 = v.slice(9, 11);
-
+    const p1 = v.slice(1, 4), p2 = v.slice(4, 7), p3 = v.slice(7, 9), p4 = v.slice(9, 11);
     let out = '+7';
     if (p1) out += ' (' + p1;
     if (p1.length === 3) out += ')';
@@ -560,58 +635,59 @@ const Utils = (() => {
 
 /* ===== 14. FLOATING BOOKING BUTTON ===== */
 (() => {
-  // Кнопка уже ведёт на #booking, но если на странице есть модалка — открываем её.
   const fab = Utils.$('.fab-book');
   if (!fab) return;
-  // ниже — лёгкая пульсация для привлечения внимания
   fab.style.animation = 'pulse 3.6s ease-in-out infinite';
 })();
 
-/* ===== 15. MODAL ===== */
+/* ===== 15. MODAL (мульти-поддержка) ===== */
 (() => {
-  const modal = Utils.$('[data-modal]');
-  if (!modal) return;
+  const modals = Utils.$$('[data-modal]');
+  if (!modals.length) return;
 
-  const openers = Utils.$$('[data-modal-open]');
-  const closers = Utils.$$('[data-modal-close]', modal);
   let lastFocused = null;
 
-  const open = () => {
+  const openModal = (name) => {
+    const modal = modals.find(m => m.dataset.modal === name);
+    if (!modal) return;
     lastFocused = document.activeElement;
     modal.hidden = false;
     document.body.style.overflow = 'hidden';
-    // фокус на первое поле
     const firstInput = Utils.$('input, select, textarea, button', modal);
     firstInput?.focus();
   };
 
-  const close = () => {
+  const closeModal = (modal) => {
+    if (!modal) return;
     modal.hidden = true;
     document.body.style.overflow = '';
     lastFocused?.focus();
   };
 
-  openers.forEach(btn => btn.addEventListener('click', (e) => {
+  const closeAll = () => modals.forEach(m => { if (!m.hidden) closeModal(m); });
+
+  document.addEventListener('click', (e) => {
+    const opener = e.target.closest('[data-modal-open]');
+    if (!opener) return;
     e.preventDefault();
-    open();
-  }));
-  closers.forEach(el => el.addEventListener('click', close));
-  document.addEventListener('keydown', (e) => {
-    if (modal.hidden) return;
-    if (e.key === 'Escape') close();
-    if (e.key === 'Tab') {
-      const focusables = Utils.$$('input, select, textarea, button, a[href]', modal)
-        .filter(el => !el.hasAttribute('disabled') && el.offsetParent !== null);
-      if (!focusables.length) return;
-      const first = focusables[0];
-      const last  = focusables[focusables.length - 1];
-      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-    }
+    openModal(opener.dataset.modalOpen);
   });
 
-  // экспорт наружу — для формы
-  window.ModalModule = { open, close, closeAll: close };
+  modals.forEach(modal => {
+    Utils.$$('[data-modal-close]', modal).forEach(el => {
+      el.addEventListener('click', () => closeModal(modal));
+    });
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') modals.forEach(m => { if (!m.hidden) closeModal(m); });
+  });
+
+  window.ModalModule = {
+    open: openModal,
+    close: (name) => closeModal(modals.find(m => m.dataset.modal === name)),
+    closeAll,
+  };
 })();
 
 /* ===== 16. SAKURA PETALS ===== */
@@ -636,7 +712,7 @@ const Utils = (() => {
   }
 })();
 
-/* ===== 17. CURRENT YEAR IN FOOTER ===== */
+/* ===== 17. CURRENT YEAR ===== */
 (() => {
   const el = Utils.$('[data-year]');
   if (!el) return;
@@ -653,22 +729,16 @@ const Utils = (() => {
 
   const knob = Utils.$('.ba__knob', ba);
 
-  /**
-   * Устанавливает положение разделителя.
-   * @param {number} clientX — координата курсора/пальца по X
-   */
   const setPos = (clientX) => {
     const r = ba.getBoundingClientRect();
     let p = ((clientX - r.left) / r.width) * 100;
     p = Math.max(0, Math.min(100, p));
-
-    after.style.clipPath   = `inset(0 0 0 ${p}%)`;
-    handle.style.left      = p + '%';
+    after.style.clipPath = `inset(0 0 0 ${p}%)`;
+    handle.style.left = p + '%';
     if (knob) knob.style.left = p + '%';
   };
 
   let dragging = false;
-
   const onDown = (e) => {
     dragging = true;
     ba.classList.add('is-dragging');
@@ -679,13 +749,11 @@ const Utils = (() => {
     window.addEventListener('touchend', onUp);
     window.addEventListener('touchcancel', onUp);
   };
-
   const onMove = (e) => {
     if (!dragging) return;
     if (e.cancelable) e.preventDefault();
     setPos(e.touches ? e.touches[0].clientX : e.clientX);
   };
-
   const onUp = () => {
     dragging = false;
     ba.classList.remove('is-dragging');
@@ -698,30 +766,6 @@ const Utils = (() => {
 
   ba.addEventListener('mousedown', onDown);
   ba.addEventListener('touchstart', onDown, { passive: true });
-
-  // Доступность: клавиатура
-  ba.setAttribute('tabindex', '0');
-  ba.setAttribute('role', 'slider');
-  ba.setAttribute('aria-valuemin', '0');
-  ba.setAttribute('aria-valuemax', '100');
-  ba.setAttribute('aria-valuenow', '50');
-  ba.setAttribute('aria-label', 'Сравнение до и после — двигайте влево/вправо');
-
-  ba.addEventListener('keydown', (e) => {
-    const current = parseFloat(after.style.clipPath.match(/(\d+(\.\d+)?)%/)?.[1] ?? '50');
-    let next = current;
-    if (e.key === 'ArrowLeft')  next = Math.max(0,   current - 2);
-    if (e.key === 'ArrowRight') next = Math.min(100, current + 2);
-    if (e.key === 'Home')       next = 0;
-    if (e.key === 'End')        next = 100;
-    if (next !== current) {
-      e.preventDefault();
-      after.style.clipPath = `inset(0 0 0 ${next}%)`;
-      handle.style.left    = next + '%';
-      if (knob) knob.style.left = next + '%';
-      ba.setAttribute('aria-valuenow', String(Math.round(next)));
-    }
-  });
 })();
 
 /* ===== 19. GIFT NOMINALS ===== */
@@ -737,18 +781,14 @@ const Utils = (() => {
 /* ===== 20. ACTIVE NAV LINK ===== */
 (() => {
   const links = Utils.$$('.nav__link');
-  const sections = links
-    .map(a => document.getElementById(a.getAttribute('href').slice(1)))
-    .filter(Boolean);
+  const sections = links.map(a => document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
   if (!links.length || !sections.length) return;
 
   const onScroll = Utils.throttle(() => {
     const pos = window.scrollY + 120;
     let current = null;
     sections.forEach(s => { if (s.offsetTop <= pos) current = s.id; });
-    links.forEach(a => {
-      a.classList.toggle('is-active', a.getAttribute('href') === '#' + current);
-    });
+    links.forEach(a => a.classList.toggle('is-active', a.getAttribute('href') === '#' + current));
   });
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();

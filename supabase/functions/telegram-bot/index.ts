@@ -17,11 +17,13 @@ const supabase = createClient(
 bot.command('start', (ctx) => {
   ctx.reply(
     '🌸 *SAKURA Nail Studio Bot*\n\n' +
-    'Я помогу вам управлять заявками:\n\n' +
+    'Я помогу вам управлять заявками и отзывами:\n\n' +
     '📋 /bookings — последние 10 заявок\n' +
     '✅ /confirm <id> — подтвердить заявку\n' +
     '❌ /cancel <id> — отменить заявку\n' +
-    '📊 /stats — статистика',
+    '📊 /stats — статистика заявок\n' +
+    '⭐ /pending_reviews — отзывы на модерации\n' +
+    '✅ /publish_review <id> — опубликовать отзыв',
     { parse_mode: 'Markdown' }
   )
 })
@@ -102,6 +104,51 @@ bot.command('stats', async (ctx) => {
     `✅ Подтверждено: ${confirmed ?? 0}`,
     { parse_mode: 'Markdown' }
   )
+})
+
+// Список отзывов на модерации
+bot.command('pending_reviews', async (ctx) => {
+  const { data, error } = await supabase
+    .from('reviews')
+    .select('*')
+    .eq('is_published', false)
+    .order('created_at', { ascending: false })
+    .limit(10)
+
+  if (error || !data?.length) {
+    return ctx.reply('Отзывов на модерации нет 📭')
+  }
+
+  const text = data.map((r) => {
+    const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating)
+    return [
+      `🆕 *#${r.id.slice(0, 8)}* — ${r.name}`,
+      `⭐ ${stars}`,
+      `💬 ${r.text}`,
+      `Публикация: /publish_review ${r.id}`,
+    ].join('\n')
+  }).join('\n\n')
+
+  ctx.reply(text, { parse_mode: 'Markdown' })
+})
+
+// Публикация отзыва
+bot.command('publish_review', async (ctx) => {
+  const id = ctx.match?.trim()
+  if (!id) return ctx.reply('Использование: /publish_review <id>')
+
+  const { data, error } = await supabase
+    .from('reviews')
+    .update({ is_published: true })
+    .eq('id', id)
+    .select()
+    .single()
+
+  if (error || !data) {
+    return ctx.reply(`Ошибка: ${error?.message || 'отзыв не найден'}`)
+  }
+
+  ctx.reply(`✅ Отзыв от ${data.name} опубликован на сайте`)
 })
 
 const handleUpdate = webhookCallback(bot, 'std/http')
